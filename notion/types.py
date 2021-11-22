@@ -1,6 +1,6 @@
+import warnings
 from dataclasses import dataclass, fields
 from typing import List
-import warnings
 
 
 @dataclass(init=False)

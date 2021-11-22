@@ -1,8 +1,8 @@
-import requests
-from requests.models import Response
-from dotenv import load_dotenv
-from dataclasses import fields
 from os import getenv
+
+import requests
+from dotenv import load_dotenv
+from requests.models import Response
 
 from notion.types import Page
 
@@ -28,13 +28,3 @@ class NotionClient:
 
     def __str__(self) -> str:
         return self.bearer_token
-
-
-if __name__ == "__main__":
-    myClient = NotionClient()
-
-    from pprint import pprint
-
-    pprint(myClient._get_page("cc7e60738e1143169432b3f75c6cc564").json())
-    print()
-    print("\n", myClient.get_page("cc7e60738e1143169432b3f75c6cc564"))
