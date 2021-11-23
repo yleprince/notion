@@ -27,7 +27,34 @@ class TestNotionClientMethods:
 
     @fixture(autouse=True)
     def page_tutu_str(self) -> str:
-        return '{"object":"page","id":"tutu","created_time":"2021-09-29T13:36:00.000Z","last_edited_time":"2021-11-20T21:17:00.000Z","cover":{"type":"external","external":{"url":"https://www.notion.so/images/page-cover/gradients_10.jpg"}},"icon":{"type":"emoji","emoji":"🏆"},"parent":{"type":"workspace","workspace":true},"archived":false,"properties":{"title":{"id":"title","type":"title","title":[{"type":"text","text":{"content":"🎄test-page","link":null},"annotations":{"bold":false,"italic":false,"strikethrough":false,"underline":false,"code":false,"color":"default"},"plain_text":"🎄test-page","href":null}]}},"url":"https://www.notion.so/test-page-tutu"}'
+        return '{"object":"page","id":"tutu",\
+          "created_time":"2021-09-29T13:36:00.000Z",\
+          "last_edited_time":"2021-11-20T21:17:00.000Z",\
+          "cover":{\
+            "type":"external","external":{\
+            "url":"https://www.notion.so/images/page-cover/gradients_10.jpg"\
+          }},\
+          "icon":{"type":"emoji","emoji":"🏆"},\
+          "parent":{"type":"workspace","workspace":true},\
+          "archived":false,\
+          "properties":{\
+            "title":{\
+              "id":"title",\
+              "type":"title",\
+              "title":[{\
+                "type":"text",\
+                "text":{"content":"🎄test-page","link":null},\
+                "annotations":{\
+                  "bold":false,"italic":false,"strikethrough":false,\
+                  "underline":false,"code":false,"color":"default"\
+                },\
+                "plain_text":"🎄test-page",\
+                "href":null\
+              }]\
+            }\
+          },\
+          "url":"https://www.notion.so/test-page-tutu"\
+        }'
 
     @fixture(autouse=True)
     def mock_tutu(self, page_tutu_str) -> None:
@@ -49,13 +76,12 @@ class TestNotionClientMethods:
 
     @responses.activate
     def test_get_page(self, client, mock_tutu):
+        cover_url = "https://www.notion.so/images/page-cover/gradients_10.jpg"
         expected_page: Page = Page(
             archived=False,
             cover={
                 "type": "external",
-                "external": {
-                    "url": "https://www.notion.so/images/page-cover/gradients_10.jpg"
-                },
+                "external": {"url": cover_url},
             },
             created_time="2021-09-29T13:36:00.000Z",
             icon={"type": "emoji", "emoji": "🏆"},

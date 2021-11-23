@@ -17,6 +17,23 @@ mypy = "^0.910"
 pre-commit = "^2.15.0"
 pytest = "6.2.5"
 pytest-cov = "^3.0.0"
+taskipy = "1.9.0"
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+
+[tool.taskipy.tasks]
+check_lint = "task check_isort && task lint_mypy && task check_black && task lint_flake8"
+check_isort = "isort . --check-only"
+lint_mypy = "mypy ./notion ./tests"
+check_black = "black . --check --diff"
+lint_flake8 = "flake8 ."
+
+lint_format = "isort . && black . && task lint_mypy && task lint_flake8"
+
+
+test_cov = "pytest --cov --cov-fail-under=100"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
