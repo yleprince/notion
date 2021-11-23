@@ -10,8 +10,12 @@ load_dotenv()
 
 
 class NotionClient:
-    def __init__(self, bearer_token: str = None):
-        self.bearer_token = bearer_token or getenv("NOTION_TOKEN")
+    def __init__(self, token: str | None = None):
+        token = getenv("NOTION_TOKEN") if token is None else token
+        if token is None or not isinstance(token, str):
+            raise TypeError("Notion token should be defined.")
+
+        self.bearer_token: str = token
         self.headers = {
             "Authorization": f"Bearer {self.bearer_token}",
             "Notion-Version": "2021-08-16",
