@@ -33,7 +33,7 @@ black_check = "black . --check --diff"
 flake8_check = "flake8 ."
 
 test = "pytest"
-test_cov = "pytest --cov --cov-fail-under=100"
+test_cov = "pytest --cov-fail-under=100 --cov-report term-missing --cov=notion tests/"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
