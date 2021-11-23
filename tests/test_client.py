@@ -3,12 +3,26 @@ import os
 from unittest import mock
 
 import responses
-from pytest import fixture
+from pytest import fixture, raises
 
 from notion.client import NotionClient
 
 
+@fixture(autouse=True)
+def client() -> NotionClient:
+    return NotionClient()
+
+
 class TestNotionClient:
+    def test_client_environment_token_None(self):
+        _environ = os.environ.copy()  # or os.environ.copy()
+        try:
+            os.environ.clear()
+            raises(TypeError, NotionClient)
+        finally:
+            os.environ.clear()
+            os.environ.update(_environ)
+
     @mock.patch.dict(os.environ, {"NOTION_TOKEN": "mockMyBearerToken"})
     def test_client_environment_token(self):
         myClient = NotionClient()
@@ -20,10 +34,6 @@ class TestNotionClient:
 
 
 class TestNotionClientMethods:
-    @fixture(autouse=True)
-    def client(self) -> NotionClient:
-        return NotionClient()
-
     @responses.activate
     def test__get_page(self, client, page_tutu_str, mock_tutu):
         response = client._get_page(page_uuid="tutu")
