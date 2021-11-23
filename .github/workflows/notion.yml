@@ -32,7 +32,7 @@ jobs:
         POETRY_VIRTUALENVS_CREATE: false
     - name: Lint with isort, mypy, black and flake8
       run: |
-        poetry run task lint
+        poetry run task lint_check
     - name: Pytest with coverage
       run: |
         poetry run task test_cov
