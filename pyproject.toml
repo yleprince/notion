@@ -24,15 +24,14 @@ line-length = 88
 target-version = ['py38']
 
 [tool.taskipy.tasks]
-check_lint = "task check_isort && task lint_mypy && task check_black && task lint_flake8"
-check_isort = "isort . --check-only"
-lint_mypy = "mypy ./notion ./tests"
-check_black = "black . --check --diff"
-lint_flake8 = "flake8 ."
+lint_format = "isort . && black . && task mypy_check && task flake8_check"
+lint_check = "task isort_check && task mypy_check && task black_check && task flake8_check"
+isort_check = "isort . --check-only"
+mypy_check = "mypy ./notion ./tests"
+black_check = "black . --check --diff"
+flake8_check = "flake8 ."
 
-lint_format = "isort . && black . && task lint_mypy && task lint_flake8"
-
-
+test = "pytest"
 test_cov = "pytest --cov --cov-fail-under=100"
 
 [build-system]
