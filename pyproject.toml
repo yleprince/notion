@@ -19,6 +19,7 @@ pytest = "6.2.5"
 pytest-cov = "^3.0.0"
 taskipy = "1.9.0"
 types-requests = "2.26.0"
+ipython = "^7.30.0"
 
 [tool.black]
 line-length = 88
